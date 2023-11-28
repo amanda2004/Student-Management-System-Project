@@ -176,12 +176,34 @@ Student* StudentManagementSystem::findMin(Student* node){
 }
 
 Student* StudentManagementSystem::searchStudent(Student* node, int student_id){
+    // Set column widths
+    const int colWidths[] = {25, 20, 20, 10, 8, 18, 11};
+
     while (node != nullptr){
         if(student_id == node->student_id){
             cout << "Student found:" << endl;
-            cout << setw(15) << "Name" << setw(10) << "Student ID" << setw(15) << "Study Program" << setw(10) << "Cohort" << setw(10) << "GPA" << setw(15) << "Date of Birth" << setw(15) << "Phone Number" << endl;
-            cout << setfill('-') << setw(85) << "" << setfill(' ') << endl;
-            cout << setw(15) << node->name << setw(10) << node->student_id << setw(15) << node->study_program << setw(10) << node->cohort << setw(10) << fixed << setprecision(2) << node->gpa << setw(15) << node->date_of_birth << setw(15) << node->phone_number << endl;
+
+            // Print header
+            cout << setw(colWidths[0]) << left << "Name"
+                 << setw(colWidths[1]) << left << "Student ID"
+                 << setw(colWidths[2]) << left << "Study Program"
+                 << setw(colWidths[3]) << left << "Cohort"
+                 << setw(colWidths[4]) << left << "GPA"
+                 << setw(colWidths[5]) << left << "Date of Birth"
+                 << setw(colWidths[6]) << left << "Phone Number" << endl;
+
+            // Print separator line
+            cout << setfill('-') << setw(colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6]) << "" << setfill(' ') << endl;
+
+            // Print student information in a tabulated format
+            cout << setw(colWidths[0]) << left << node->name
+                 << setw(colWidths[1]) << left << node->student_id
+                 << setw(colWidths[2]) << left << node->study_program
+                 << setw(colWidths[3]) << left << node->cohort
+                 << setw(colWidths[4]) << left << fixed << setprecision(2) << node->gpa
+                 << setw(colWidths[5]) << left << node->date_of_birth
+                 << setw(colWidths[6]) << left << node->phone_number << endl;
+
             return node;
         } else if (student_id < node->student_id) {
             node = node->left;
@@ -244,5 +266,4 @@ void StudentManagementSystem::displayStudentsTableHelper(Student* node, const in
         displayStudentsTableHelper(node->right, colWidths);
     }
 }
-
 
