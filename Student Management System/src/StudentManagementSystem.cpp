@@ -118,3 +118,62 @@ student* StudentManagementSystem::addStudent(string name, int student_id, string
 void StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number) {
     root = addStudent(root, name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
 }
+
+void StudentManagementSystem::editStudent(Student* node, int student_id) {
+    while (node != nullptr) {
+        if (student_id == node->student_id) {
+            cout << "Enter new student name: ";
+            cin.ignore();
+            getline(cin, node->name);
+
+            cout << "Enter new student GPA: ";
+            cin >> node->gpa;
+
+            cout << "Enter new study program: ";
+            cin >> node->study_program;
+            
+            cout << "Enter new cohort: ";
+            cin >> node->cohort;
+            
+            cout << "Enter new date of birth: ";
+            cin >> node->date_of_birth;
+            
+            cout << "Enter new phone number: ";
+            cin >> node->phone_number;
+            
+            cout << "Student information updated successfully." << endl;
+            return;
+        } else if (student_id < node->student_id) {
+            node = node->left;
+        } else {
+            node = node->right;
+        }
+    }
+
+    cout << "Student not found." << endl;
+}
+
+Student* StudentManagementSystem::chooseStudentToEdit() {
+    if (root == nullptr) {
+        cout << "No students in the system." << endl;
+        return nullptr;
+    }
+
+    cout << "Choose a student to edit:" << endl;
+    displayStudentsTree(root);
+
+    int id;
+    cout << "Enter the ID of the student to edit: ";
+    cin >> id;
+
+    Student* selectedStudent = nullptr;
+    while (selectedStudent == nullptr) {
+        selectedStudent = searchStudent(root, id);
+        if (selectedStudent == nullptr) {
+            cout << "Student not found. Please enter a valid ID: ";
+            cin >> id;
+        }
+    }
+
+    return selectedStudent;
+}
