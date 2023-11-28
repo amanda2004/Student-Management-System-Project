@@ -47,6 +47,12 @@ class StudentManagementSystem
 
         //Getter function to access the root of the binary search tree
         Student* getRoot();
+        
+        //Function to add a new student to the binary search tree
+        Student* addStudent(Student* node, string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number);
+        
+        //Wrapper function to add a student
+        void addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number);
 
     private:
         Student* root; //Root of the binary search tree
