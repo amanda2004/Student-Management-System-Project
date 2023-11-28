@@ -30,6 +30,24 @@ class StudentManagementSystem
         //Destructor to free memory
         ~StudentManagementSystem();
 
+        //Function to remove a student with a specific Student ID from the binary search tree
+        Student* removeStudent(Student* node, int student_id);
+
+        //Function to remove a node from the binary search tree
+        Student* removeNode(Student* node);
+
+        //Function to clear all students from the binary search tree
+        void clearTree(Student* node);
+
+        //Function to clear all students from the linked list
+        void clearList();
+
+        //Wrapper function to remove a student
+        void removeStudent(int student_id);
+
+        //Getter function to access the root of the binary search tree
+        Student* getRoot();
+
     private:
         Student* root; //Root of the binary search tree
         Student* head; //Head of the linked list
