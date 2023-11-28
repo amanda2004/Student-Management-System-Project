@@ -1,4 +1,5 @@
 #include <iostream>
+#include "StudentManagementSystem.h"
 
 using namespace std;
 
@@ -42,7 +43,10 @@ int main()
                 break;
             case 5:
                 {
-
+                    int id;
+                    cout << "Enter the Student ID of the student you want to remove: ";
+                    cin >> id;
+                    system.removeStudent(id);
                 }
                 break;
             case 6:
