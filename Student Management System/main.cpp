@@ -93,7 +93,7 @@ int main()
                 break;
 
             case 4:
-                system.displayStudents();
+                system.displayStudentsTable();
                 break;
 
             case 5:
