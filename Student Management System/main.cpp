@@ -23,7 +23,29 @@ int main()
         switch(choice){
             case 1:
                 {
-
+                    string name;
+                    int student_id;
+                    string study_program;
+                    int cohort;
+                    float gpa;
+                    string date_of_birth;
+                    int phone_number
+                    cout << "Enter Student Name: ";
+                    cin.ignore(); // Clear the buffer
+                    getline(cin, name);
+                    cout << "Enter Student ID: ";
+                    cin >> student_id;
+                    cout << "Enter Study Program: ";
+                    cin >> study_program;
+                    cout << "Enter Student Cohort: ";
+                    cin >> cohort;
+                    cout << "Enter Student GPA: ";
+                    cin >> gpa;
+                    cout << "Enter Student Date Of Birth: ";
+                    cin >> date_of_birth;
+                    cout << "Enter Student Phone Number: ";
+                    cin >> phone_number;
+                    system.addStudent(name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
                 }
                 break;
             case 2:
