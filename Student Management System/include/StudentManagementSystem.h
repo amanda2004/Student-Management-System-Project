@@ -53,10 +53,15 @@ class StudentManagementSystem
         
         //Wrapper function to add a student
         void addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number);
-
+        
+        //Wrapper function to edit a student's information
+        void editStudent();
+        
     private:
         Student* root; //Root of the binary search tree
         Student* head; //Head of the linked list
+        Student* chooseStudentToEdit(); // Function to choose a student to edit
+        void editStudent(Student* node, int student_id);
 };
 
 #endif // STUDENTMANAGEMENTSYSTEM_H
