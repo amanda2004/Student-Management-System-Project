@@ -19,7 +19,7 @@ Student* StudentManagementSystem::removeStudent(Student* node, int student_id){
 
     if(student_id < node -> student_id){
         node -> left = removeStudent(node -> left, student_id);
-    } else if {
+    } else if(student_id > node->student_id) {
         node -> right = removeStudent(node -> right, student_id);
     } else {
         //Node with the Student ID to be removed is found
@@ -89,7 +89,7 @@ Student* StudentManagementSystem::getRoot(){
 }
 
 //Function to add a new student to the binary search tree
-student* StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number) {
+Student* StudentManagementSystem::addStudent(Student* node, string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, string phone_number) {
     if (node == nullptr) {
         node = new Student;
         node->name = name;
@@ -115,7 +115,7 @@ student* StudentManagementSystem::addStudent(string name, int student_id, string
 }
 
 // Wrapper function to add a student
-void StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number) {
+void StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, string phone_number) {
     root = addStudent(root, name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
 }
 
@@ -126,21 +126,22 @@ void StudentManagementSystem::editStudent(Student* node, int student_id) {
             cin.ignore();
             getline(cin, node->name);
 
+            cout << "Enter new study program: ";
+            getline(cin, node->study_program);
+
+            cout << "Enter new student cohort: ";
+            cin >> node->cohort;
+
             cout << "Enter new student GPA: ";
             cin >> node->gpa;
 
-            cout << "Enter new study program: ";
-            cin >> node->study_program;
-            
-            cout << "Enter new cohort: ";
-            cin >> node->cohort;
-            
             cout << "Enter new date of birth: ";
-            cin >> node->date_of_birth;
-            
+            cin.ignore();
+            getline(cin, node->date_of_birth);
+
             cout << "Enter new phone number: ";
-            cin >> node->phone_number;
-            
+            getline(cin, node->phone_number);
+
             cout << "Student information updated successfully." << endl;
             return;
         } else if (student_id < node->student_id) {
@@ -149,31 +150,82 @@ void StudentManagementSystem::editStudent(Student* node, int student_id) {
             node = node->right;
         }
     }
-
     cout << "Student not found." << endl;
 }
 
 Student* StudentManagementSystem::chooseStudentToEdit() {
-    if (root == nullptr) {
-        cout << "No students in the system." << endl;
+    int student_id;
+    cout << "Enter the Student ID you want to edit: ";
+    cin >> student_id;
+
+    Student* studentToEdit = searchStudent(root, student_id);
+
+    if (studentToEdit != nullptr){
+        return studentToEdit;
+    } else {
         return nullptr;
     }
+}
 
-    cout << "Choose a student to edit:" << endl;
-    displayStudentsTree(root);
-
-    int id;
-    cout << "Enter the ID of the student to edit: ";
-    cin >> id;
-
-    Student* selectedStudent = nullptr;
-    while (selectedStudent == nullptr) {
-        selectedStudent = searchStudent(root, id);
-        if (selectedStudent == nullptr) {
-            cout << "Student not found. Please enter a valid ID: ";
-            cin >> id;
-        }
+void StudentManagementSystem::displayStudentsList() {
+    if (head == nullptr) {
+        cout << "No students in the system." << endl;
+        return;
     }
 
-    return selectedStudent;
+    cout << "Student List:" << endl;
+    cout << setw(15) << "Name" << setw(15) << "Student ID" << setw(15) << "Study Program" << setw(10) << "Cohort" << setw(10) << "GPA" << setw(15) << "Date of Birth" << setw(15) << "Phone Number" << endl;
+    cout << setfill('-') << setw(90) << "" << setfill(' ') << endl;
+
+    Student* current = head;
+    while (current != nullptr) {
+        cout << setw(15) << current->name << setw(15) << current->student_id << setw(15) << current->study_program << setw(10) << current->cohort << setw(10) << fixed << setprecision(2) << current->gpa << setw(15) << current->date_of_birth << setw(15) << current->phone_number << endl;
+        current = current->next;
+    }
+}
+
+void StudentManagementSystem::displayStudentsTree(Student* node) {
+    if (node != nullptr) {
+        displayStudentsTree(node->left);
+        cout << setw(15) << node->name << setw(15) << node->student_id << setw(15) << node->study_program << setw(10) << node->cohort << setw(10) << fixed << setprecision(2) << node->gpa << setw(15) << node->date_of_birth << setw(15) << node->phone_number << endl;
+        displayStudentsTree(node->right);
+    }
+}
+
+Student* StudentManagementSystem::findMin(Student* node){
+    while(node->left != nullptr){
+        node = node->left;
+    }
+    return node;
+}
+
+Student* StudentManagementSystem::searchStudent(Student* node, int student_id){
+    while (node != nullptr){
+        if(student_id == node->student_id){
+            cout << "Student found:" << endl;
+            cout << setw(15) << "Name" << setw(10) << "Student ID" << setw(15) << "Study Program" << setw(10) << "Cohort" << setw(10) << "GPA" << setw(15) << "Date of Birth" << setw(15) << "Phone Number" << endl;
+            cout << setfill('-') << setw(85) << "" << setfill(' ') << endl;
+            cout << setw(15) << node->name << setw(10) << node->student_id << setw(15) << node->study_program << setw(10) << node->cohort << setw(10) << fixed << setprecision(2) << node->gpa << setw(15) << node->date_of_birth << setw(15) << node->phone_number << endl;
+            return node;
+        } else if (student_id < node->student_id) {
+            node = node->left;
+        } else {
+            node = node->right;
+        }
+    }
+    cout << "Student not found." << endl;
+    return nullptr;
+}
+
+void StudentManagementSystem::displayStudents() {
+    displayStudentsList();
+    cout << endl;
+    displayStudentsTree(root);
+}
+
+void StudentManagementSystem::editStudent() {
+    Student* studentToEdit = chooseStudentToEdit();
+    if (studentToEdit != nullptr) {
+        editStudent(root, studentToEdit->student_id);
+    }
 }
