@@ -50,7 +50,7 @@ int main()
                 break;
             case 2:
                 {
-
+                    system.editStudent();
                 }
                 break;
             case 3:
