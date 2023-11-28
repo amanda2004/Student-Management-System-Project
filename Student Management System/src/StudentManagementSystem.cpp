@@ -167,30 +167,6 @@ Student* StudentManagementSystem::chooseStudentToEdit() {
     }
 }
 
-void StudentManagementSystem::displayStudentsList() {
-    if (head == nullptr) {
-        cout << "No students in the system." << endl;
-        return;
-    }
-
-    cout << "Student List:" << endl;
-    cout << setw(15) << "Name" << setw(15) << "Student ID" << setw(15) << "Study Program" << setw(10) << "Cohort" << setw(10) << "GPA" << setw(15) << "Date of Birth" << setw(15) << "Phone Number" << endl;
-    cout << setfill('-') << setw(90) << "" << setfill(' ') << endl;
-
-    Student* current = head;
-    while (current != nullptr) {
-        cout << setw(15) << current->name << setw(15) << current->student_id << setw(15) << current->study_program << setw(10) << current->cohort << setw(10) << fixed << setprecision(2) << current->gpa << setw(15) << current->date_of_birth << setw(15) << current->phone_number << endl;
-        current = current->next;
-    }
-}
-
-void StudentManagementSystem::displayStudentsTree(Student* node) {
-    if (node != nullptr) {
-        displayStudentsTree(node->left);
-        cout << setw(15) << node->name << setw(15) << node->student_id << setw(15) << node->study_program << setw(10) << node->cohort << setw(10) << fixed << setprecision(2) << node->gpa << setw(15) << node->date_of_birth << setw(15) << node->phone_number << endl;
-        displayStudentsTree(node->right);
-    }
-}
 
 Student* StudentManagementSystem::findMin(Student* node){
     while(node->left != nullptr){
@@ -217,15 +193,56 @@ Student* StudentManagementSystem::searchStudent(Student* node, int student_id){
     return nullptr;
 }
 
-void StudentManagementSystem::displayStudents() {
-    displayStudentsList();
-    cout << endl;
-    displayStudentsTree(root);
-}
+
 
 void StudentManagementSystem::editStudent() {
+
     Student* studentToEdit = chooseStudentToEdit();
     if (studentToEdit != nullptr) {
         editStudent(root, studentToEdit->student_id);
     }
 }
+
+void StudentManagementSystem::displayStudentsTable() {
+    if (root == nullptr) {
+        cout << "No students in the system." << endl;
+        return;
+    }
+    // Set column widths
+    const int colWidths[] = {25, 20, 20, 10, 8, 18, 11};
+
+    // Print header
+    cout << setw(colWidths[0]) << left << "Name"
+         << setw(colWidths[1]) << left << "Student ID"
+         << setw(colWidths[2]) << left << "Study Program"
+         << setw(colWidths[3]) << left << "Cohort"
+         << setw(colWidths[4]) << left << "GPA"
+         << setw(colWidths[5]) << left << "Date of Birth"
+         << setw(colWidths[6]) << left << "Phone Number" << endl;
+
+    // Print separator line
+    cout << setfill('-') << setw(colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + colWidths[4] + colWidths[5] + colWidths[6]) << "" << setfill(' ') << endl;
+
+    // Print student data
+    displayStudentsTableHelper(root, colWidths);
+}
+
+
+void StudentManagementSystem::displayStudentsTableHelper(Student* node, const int colWidths[]) {
+    if (node != nullptr) {
+        displayStudentsTableHelper(node->left, colWidths);
+
+        // Print student information in a tabulated format
+        cout << setw(colWidths[0]) << left << node->name
+             << setw(colWidths[1]) << left << node->student_id
+             << setw(colWidths[2]) << left << node->study_program
+             << setw(colWidths[3]) << left << node->cohort
+             << setw(colWidths[4]) << left << fixed << setprecision(2) << node->gpa
+             << setw(colWidths[5]) << left << node->date_of_birth
+             << setw(colWidths[6]) << left << node->phone_number << endl;
+
+        displayStudentsTableHelper(node->right, colWidths);
+    }
+}
+
+
