@@ -29,6 +29,7 @@ class StudentManagementSystem
         void displayStudents();
         void clearTree(Student* node); //Function to clear all students from the binary search tree
         void clearList(); //Function to clear all students from the linked list
+        void displayStudentsTable();
 
     private:
         Student* root; //Root of the binary search tree
@@ -43,6 +44,9 @@ class StudentManagementSystem
         void displayStudentsList();
         void displayStudentsTree(Student* node);
         void editStudent(Student* node, int student_id);
+        void displayStudentsTableHelper(Student* node, const int colWidths[]);
+
+
 };
 
 #endif // STUDENTMANAGEMENTSYSTEM_H
