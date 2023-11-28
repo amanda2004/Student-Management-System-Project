@@ -87,3 +87,34 @@ void StudentManagementSystem::removeStudent(int student_id){
 Student* StudentManagementSystem::getRoot(){
     return root;
 }
+
+//Function to add a new student to the binary search tree
+student* StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number) {
+    if (node == nullptr) {
+        node = new Student;
+        node->name = name;
+        node->student_id = student_id;
+        node->study_program = study_program;
+        node->cohort = cohort;
+        node->gpa = gpa;
+        node->date_of_birth = date_of_birth;
+        node->phone_number = phone_number;
+        node->left = node->right = nullptr;
+        node->next = head;
+        head = node;
+        cout << "Student added successfully." << endl;
+    } else if (student_id < node->student_id) {
+        node->left = addStudent(node->left, name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
+    } else if (student_id > node->student_id) {
+        node->right = addStudent(node->right, name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
+    } else {
+        cout << "Student with the same ID already exists." << endl;
+    }
+
+    return node;
+}
+
+// Wrapper function to add a student
+void StudentManagementSystem::addStudent(string name, int student_id, string study_program, int cohort, float gpa, string date_of_birth, int phone_number) {
+    root = addStudent(root, name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
+}
