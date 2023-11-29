@@ -23,7 +23,78 @@ void searchStudent(Student* node, int student_id) {
 
 int main()
 {
-    StudentManagementSystem system;
+    string input_username;
+    string input_password;
+
+
+    //Authentication logic
+    cout << "\n----------------------------------------------------------------------------------------------------------"
+            "\n----------------------------------------------------------------------------------------------------------"
+            "\n==============================Welcome to the Student Management System!==================================="
+         << endl;
+    cout << "Please sign in or register:" << endl;
+
+    User currentUser("", ""); //Empty user for now
+    StudentManagementSystem system(currentUser);
+
+    while(true){
+        cout << "1. Sign In\n"
+             << "2. Register\n"
+             << "3. Exit\n";
+        int user_choice;
+        cout << "Enter your choice: ";
+        cin >> user_choice;
+
+        if(user_choice == 1){
+            cout << "Enter your username: ";
+            cin >> input_username;
+
+            cout << "Enter your password: ";
+            cin >> input_password;
+
+            if(currentUser.authenticate(input_username, input_password)) {
+                if(currentUser.login()) {
+                    cout << "Sign-in successful!" << endl;
+                    break;
+                } else {
+                    cout << "User is already logged in. Please sign-out first." << endl;
+                }
+            } else {
+                cout << "Authentication failed. Please try again." << endl;
+            }
+        } else if (user_choice == 2){
+            cout << "Enter a new username: ";
+            cin >> input_username;
+
+            cout << "Enter a new password: ";
+            cin >> input_password;
+
+            currentUser = User(input_username, input_password);
+            cout << "Registration successful! Please sign in again." << endl;
+
+            cout << "Enter your username: ";
+            cin >> input_username;
+
+            cout << "Enter your password: ";
+            cin >> input_password;
+
+            if(currentUser.authenticate(input_username, input_password)) {
+                if(currentUser.login()) {
+                    cout << "Sign-in successful!" << endl;
+                    break;
+                } else {
+                    cout << "User is already logged in. Please sign-out first." << endl;
+                }
+            } else {
+                cout << "Authentication failed. Please try again." << endl;
+            }
+            break;
+        } else if (user_choice == 3){
+            return 0;
+        } else {
+            cout << "Invalid choice. Please enter a valid option." << endl;
+        }
+    }
 
     int choice;
     do{
@@ -36,7 +107,7 @@ int main()
                 "\n3. Search Student"
                 "\n4. Display Student"
                 "\n5. Remove Student"
-                "\n6. Exit\n";
+                "\n6. Sign Out and Exit\n";
         cout << "\nEnter your choice: ";
         cin >> choice;
 
