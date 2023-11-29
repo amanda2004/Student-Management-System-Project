@@ -2,6 +2,12 @@
 #include <iomanip>
 #include "StudentManagementSystem.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <cstdlib>
+#endif
+
 using namespace std;
 
 // Function to search for a student by ID and display the information
@@ -42,6 +48,15 @@ void searchStudent(Student* node, int student_id) {
         }
     }
     cout << "Student not found." << endl;
+}
+
+// Function to clear the terminal screen
+void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 
 int main() {
@@ -93,7 +108,18 @@ int main() {
 
                         int choice;
                         do {
-                            cout << "\n-----------------------------------------------------------------------------------------------------------------"
+                            clearScreen();
+                            cout << R"(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                ~  _____ __  __  _____   ___   ___ ___  ____  ~
+                                ~ / ____|  \/  |/ ____| |__ \ / _ \__ \|___ \ ~
+                                ~| (___ | \  / | (___      ) | | | | ) | __) |~
+                                ~ \___ \| |\/| |\___ \    / /| | | |/ / |__ < ~
+                                ~ ____) | |  | |____) |  / /_| |_| / /_ ___) |~
+                                ~|_____/|_|  |_|_____/  |____|\___/____|____/ ~
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            )"
+                                    "\n-----------------------------------------------------------------------------------------------------------------"
                                     "\n-----------------------------------------------------------------------------------------------------------------"
                                     "\n=====================================STUDENT MANAGEMENT SYSTEM MENU=============================================="
                                     "\nWelcome! What do you want to do today?"
@@ -179,6 +205,12 @@ int main() {
                                 default:
                                     cout << "Invalid choice. Please enter a valid option.\n";
                             }
+
+                            cout << "\nPress Enter to continue...";
+                            cin.ignore(); // Clear the buffer
+                            cin.get();    // Wait for the Enter key
+                            clearScreen(); // Clear the terminal screen
+
                         } while (choice != 6 && choice !=7 && choice !=8);
 
                     } else {
