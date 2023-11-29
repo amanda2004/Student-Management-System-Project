@@ -82,94 +82,94 @@ int main() {
                         cout << "Sign-in successful!" << endl;
 
                         int choice;
-    do {
-        cout << "\n----------------------------------------------------------------------------------------------------------"
-                "\n----------------------------------------------------------------------------------------------------------"
-                "\n=================================STUDENT MANAGEMENT SYSTEM MENU==========================================="
-                "\nWelcome! What do you want to do today?"
-                "\n1. Add Student"
-                "\n2. Edit Student"
-                "\n3. Search Student"
-                "\n4. Display Student"
-                "\n5. Remove Student"
-                "\n6. Sign Out and Exit\n";
-        cout << "\nEnter your choice: ";
-        cin >> choice;
+                        do {
+                            cout << "\n----------------------------------------------------------------------------------------------------------"
+                                    "\n----------------------------------------------------------------------------------------------------------"
+                                    "\n=================================STUDENT MANAGEMENT SYSTEM MENU==========================================="
+                                    "\nWelcome! What do you want to do today?"
+                                    "\n1. Add Student"
+                                    "\n2. Edit Student"
+                                    "\n3. Search Student"
+                                    "\n4. Display Student"
+                                    "\n5. Remove Student"
+                                    "\n6. Sign Out and Exit\n";
+                            cout << "\nEnter your choice: ";
+                            cin >> choice;
 
-        switch(choice){
-            case 1:
-                {
-                    string name;
-                    int student_id;
-                    string study_program;
-                    int cohort;
-                    float gpa;
-                    string date_of_birth;
-                    string phone_number;
+                            switch(choice){
+                                case 1:
+                                    {
+                                        string name;
+                                        int student_id;
+                                        string study_program;
+                                        int cohort;
+                                        float gpa;
+                                        string date_of_birth;
+                                        string phone_number;
 
-                    cout << "Enter Student Name: ";
-                    cin.ignore(); // Clear the buffer
-                    getline(cin, name);
+                                        cout << "Enter Student Name: ";
+                                        cin.ignore(); // Clear the buffer
+                                        getline(cin, name);
 
-                    cout << "Enter Student ID: ";
-                    cin >> student_id;
+                                        cout << "Enter Student ID: ";
+                                        cin >> student_id;
 
-                    cout << "Enter Study Program: ";
-                    cin.ignore(); //Clear the buffer
-                    getline(cin, study_program);
+                                        cout << "Enter Study Program: ";
+                                        cin.ignore(); //Clear the buffer
+                                        getline(cin, study_program);
 
-                    cout << "Enter Student Cohort: ";
-                    cin >> cohort;
+                                        cout << "Enter Student Cohort: ";
+                                        cin >> cohort;
 
-                    cout << "Enter Student GPA: ";
-                    cin >> gpa;
+                                        cout << "Enter Student GPA: ";
+                                        cin >> gpa;
 
-                    cout << "Enter Student Date Of Birth: ";
-                    cin.ignore(); //Clear the buffer
-                    getline(cin, date_of_birth);
+                                        cout << "Enter Student Date Of Birth: ";
+                                        cin.ignore(); //Clear the buffer
+                                        getline(cin, date_of_birth);
 
-                    cout << "Enter Student Phone Number: ";
-                    getline(cin, phone_number);
+                                        cout << "Enter Student Phone Number: ";
+                                        getline(cin, phone_number);
 
-                    system.addStudent(name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
-                }
-                break;
+                                        system.addStudent(name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
+                                    }
+                                    break;
 
-            case 2:
-                system.editStudent();
-                break;
+                                case 2:
+                                    system.editStudent();
+                                    break;
 
-            case 3:
-                {
-                    int student_id;
-                    cout << "Enter the Student ID to search: ";
-                    cin >> student_id;
-                    searchStudent(system.getRoot(), student_id);
-                }
-                break;
+                                case 3:
+                                    {
+                                        int student_id;
+                                        cout << "Enter the Student ID to search: ";
+                                        cin >> student_id;
+                                        searchStudent(system.getRoot(), student_id);
+                                    }
+                                    break;
 
-            case 4:
-                system.displayStudentsTable();
-                break;
+                                case 4:
+                                    system.displayStudentsTable();
+                                    break;
 
-            case 5:
-                {
-                    int student_id;
-                    cout << "Enter the Student ID of the student you want to remove: ";
-                    cin >> student_id;
-                    system.removeStudent(student_id);
-                }
-                break;
-            case 6:
-                system.clearTree(system.getRoot());
-                system.clearList();
-                cout << "Exiting program. Goodbye!" << endl;
-                break;
+                                case 5:
+                                    {
+                                        int student_id;
+                                        cout << "Enter the Student ID of the student you want to remove: ";
+                                        cin >> student_id;
+                                        system.removeStudent(student_id);
+                                    }
+                                    break;
+                                case 6:
+                                    system.clearTree(system.getRoot());
+                                    system.clearList();
+                                    cout << "Exiting program. Goodbye!" << endl;
+                                    break;
 
-            default:
-                cout << "Invalid choice. Please enter a valid option.\n";
-        }
-    } while (choice != 6);
+                                default:
+                                    cout << "Invalid choice. Please enter a valid option.\n";
+                            }
+                        } while (choice != 6 && choice !=7 && choice !=8);
 
                     } else {
                         cout << "User is already logged in. Please sign-out first." << endl;
@@ -177,6 +177,26 @@ int main() {
                     break;
                 } else {
                     cout << "Authentication failed. Please try again." << endl;
+                    cout << "1. Try sign-in again\n"
+                         << "2. Go back to registration menu\n"
+                         << "3. Exit\n";
+                    int retry_choice;
+                    cout << "Enter your choice: ";
+                    cin >> retry_choice;
+
+                    switch(retry_choice){
+                    case 1:
+                        //Continue the loop for another sign-in attempt
+                        break;
+                    case 2:
+                        isUserSignedIn = false;
+                        break;
+                    case 3:
+                        return 0;
+                    default:
+                        cout << "Invalid choice. Exiting program.\n";
+                        return 0;
+                    }
                 }
             } while (true); // Loop until successful sign-in
         } else if (user_choice == 2) {
