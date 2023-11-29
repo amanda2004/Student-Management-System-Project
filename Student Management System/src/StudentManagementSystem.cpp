@@ -1,7 +1,7 @@
 #include "StudentManagementSystem.h"
 
 //Constructor
-StudentManagementSystem::StudentManagementSystem(): root(nullptr), head(nullptr) {}
+StudentManagementSystem::StudentManagementSystem(const User& user): root(nullptr), head(nullptr), currentUser(user) {}
 
 //Destructor to free memory
 StudentManagementSystem::~StudentManagementSystem()
@@ -267,3 +267,10 @@ void StudentManagementSystem::displayStudentsTableHelper(Student* node, const in
     }
 }
 
+User StudentManagementSystem::getCurrentUser() const {
+    return currentUser;
+}
+
+void StudentManagementSystem::setCurrentUser(const User& user) {
+    currentUser = user;
+}
