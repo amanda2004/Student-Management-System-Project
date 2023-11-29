@@ -80,33 +80,8 @@ int main() {
                         currentUser.login();
                         isUserSignedIn = true;
                         cout << "Sign-in successful!" << endl;
-                        break; // Break out of the loop on successful sign-in
-                    } else {
-                        cout << "User is already logged in. Please sign-out first." << endl;
-                    }
-                    break;
-                } else {
-                    cout << "Authentication failed. Please try again." << endl;
-                }
-            } while (true); // Loop until successful sign-in
-        } else if (user_choice == 2) {
-            cout << "Enter a new username: ";
-            cin >> input_username;
 
-            cout << "Enter a new password: ";
-            cin >> input_password;
-
-            //Assuming User constructor initializes isLoggedIn to false
-            currentUser = User(input_username, input_password);
-            cout << "Registration successful! Please sign in again." << endl;
-        } else if (user_choice == 3) {
-            return 0;
-        } else {
-            cout << "Invalid choice. Please enter a valid option." << endl;
-        }
-    }
-
-    int choice;
+                        int choice;
     do {
         cout << "\n----------------------------------------------------------------------------------------------------------"
                 "\n----------------------------------------------------------------------------------------------------------"
@@ -195,6 +170,31 @@ int main() {
                 cout << "Invalid choice. Please enter a valid option.\n";
         }
     } while (choice != 6);
+
+                    } else {
+                        cout << "User is already logged in. Please sign-out first." << endl;
+                    }
+                    break;
+                } else {
+                    cout << "Authentication failed. Please try again." << endl;
+                }
+            } while (true); // Loop until successful sign-in
+        } else if (user_choice == 2) {
+            cout << "Enter a new username: ";
+            cin >> input_username;
+
+            cout << "Enter a new password: ";
+            cin >> input_password;
+
+            //Assuming User constructor initializes isLoggedIn to false
+            currentUser = User(input_username, input_password);
+            cout << "Registration successful! Please sign in again." << endl;
+        } else if (user_choice == 3) {
+            return 0;
+        } else {
+            cout << "Invalid choice. Please enter a valid option." << endl;
+        }
+    }
 
     return 0;
 }
