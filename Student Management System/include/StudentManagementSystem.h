@@ -33,6 +33,8 @@ class StudentManagementSystem
         void displayStudentsTable();
         User getCurrentUser() const;
         void setCurrentUser(const User& user);
+        // Wrapper function to display all students sorted by ID
+        void displayStudentsSortedByID();
 
     private:
         Student* root; //Root of the binary search tree
@@ -49,6 +51,8 @@ class StudentManagementSystem
         void displayStudentsTree(Student* node);
         void editStudent(Student* node, int student_id);
         void displayStudentsTableHelper(Student* node, const int colWidths[]);
+        // Function to sort students by ID using bubble sort
+        void sortStudentsByID();
 
 
 };
