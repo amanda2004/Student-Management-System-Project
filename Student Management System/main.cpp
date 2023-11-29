@@ -44,7 +44,6 @@ void searchStudent(Student* node, int student_id) {
     cout << "Student not found." << endl;
 }
 
-
 int main() {
     string input_username;
     string input_password;
@@ -122,8 +121,70 @@ int main() {
         cout << "\nEnter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            // ... (existing cases)
+        switch(choice){
+            case 1:
+                {
+                    string name;
+                    int student_id;
+                    string study_program;
+                    int cohort;
+                    float gpa;
+                    string date_of_birth;
+                    string phone_number;
+
+                    cout << "Enter Student Name: ";
+                    cin.ignore(); // Clear the buffer
+                    getline(cin, name);
+
+                    cout << "Enter Student ID: ";
+                    cin >> student_id;
+
+                    cout << "Enter Study Program: ";
+                    cin.ignore(); //Clear the buffer
+                    getline(cin, study_program);
+
+                    cout << "Enter Student Cohort: ";
+                    cin >> cohort;
+
+                    cout << "Enter Student GPA: ";
+                    cin >> gpa;
+
+                    cout << "Enter Student Date Of Birth: ";
+                    cin.ignore(); //Clear the buffer
+                    getline(cin, date_of_birth);
+
+                    cout << "Enter Student Phone Number: ";
+                    getline(cin, phone_number);
+
+                    system.addStudent(name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
+                }
+                break;
+
+            case 2:
+                system.editStudent();
+                break;
+
+            case 3:
+                {
+                    int student_id;
+                    cout << "Enter the Student ID to search: ";
+                    cin >> student_id;
+                    searchStudent(system.getRoot(), student_id);
+                }
+                break;
+
+            case 4:
+                system.displayStudentsTable();
+                break;
+
+            case 5:
+                {
+                    int student_id;
+                    cout << "Enter the Student ID of the student you want to remove: ";
+                    cin >> student_id;
+                    system.removeStudent(student_id);
+                }
+                break;
             case 6:
                 system.clearTree(system.getRoot());
                 system.clearList();
