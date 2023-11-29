@@ -25,6 +25,10 @@ void searchStudent(Student* node, int student_id) {
 int main() {
     string input_username;
     string input_password;
+    bool isUserSignedIn = false;
+
+    User currentUser("", ""); // Empty user for now
+    StudentManagementSystem system(currentUser);
 
     // Authentication logic
     cout << "\n----------------------------------------------------------------------------------------------------------"
@@ -32,9 +36,6 @@ int main() {
             "\n==============================Welcome to the Student Management System!==================================="
          << endl;
     cout << "Please sign in or register:" << endl;
-
-    User currentUser("", ""); // Empty user for now
-    StudentManagementSystem system(currentUser);
 
     while (true) {
         cout << "1. Sign In\n"
@@ -53,12 +54,15 @@ int main() {
                 cin >> input_password;
 
                 if (currentUser.authenticate(input_username, input_password)) {
-                    if (currentUser.login()) {
+                    if (!isUserSignedIn) {
+                        currentUser.login();
+                        isUserSignedIn = true;
                         cout << "Sign-in successful!" << endl;
                         break; // Break out of the loop on successful sign-in
                     } else {
                         cout << "User is already logged in. Please sign-out first." << endl;
                     }
+                    break;
                 } else {
                     cout << "Authentication failed. Please try again." << endl;
                 }
@@ -70,6 +74,7 @@ int main() {
             cout << "Enter a new password: ";
             cin >> input_password;
 
+            //Assuming User constructor initializes isLoggedIn to false
             currentUser = User(input_username, input_password);
             cout << "Registration successful! Please sign in again." << endl;
         } else if (user_choice == 3) {
