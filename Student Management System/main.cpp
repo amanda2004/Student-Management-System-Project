@@ -177,28 +177,9 @@ int main() {
                     break;
                 } else {
                     cout << "Authentication failed. Please try again." << endl;
-                    cout << "1. Try sign-in again\n"
-                         << "2. Go back to registration menu\n"
-                         << "3. Exit\n";
-                    int retry_choice;
-                    cout << "Enter your choice: ";
-                    cin >> retry_choice;
 
-                    switch(retry_choice){
-                    case 1:
-                        //Continue the loop for another sign-in attempt
-                        break;
-                    case 2:
-                        isUserSignedIn = false;
-                        break;
-                    case 3:
-                        return 0;
-                    default:
-                        cout << "Invalid choice. Exiting program.\n";
-                        return 0;
-                    }
                 }
-            } while (true); // Loop until successful sign-in
+            } while (false);
         } else if (user_choice == 2) {
             cout << "Enter a new username: ";
             cin >> input_username;
