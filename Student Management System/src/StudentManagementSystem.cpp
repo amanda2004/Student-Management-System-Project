@@ -274,3 +274,41 @@ User StudentManagementSystem::getCurrentUser() const {
 void StudentManagementSystem::setCurrentUser(const User& user) {
     currentUser = user;
 }
+
+// Function to sort students by ID using bubble sort
+void StudentManagementSystem::sortStudentsByID() {
+    // Bubble sort implementation
+    bool swapped;
+    do {
+        swapped = false;
+        Student* current = head;
+        Student* next = head->next;
+
+        while (next != nullptr) {
+            if (current->student_id > next->student_id) {
+                // Swap the students
+                swap(current->student_id, next->student_id);
+                swap(current->name, next->name);
+                swap(current->study_program, next->study_program);
+                swap(current->cohort, next->cohort);
+                swap(current->gpa, next->gpa);
+                swap(current->date_of_birth, next->date_of_birth);
+                swap(current->phone_number, next->phone_number);
+
+                swapped = true;
+            }
+
+            current = next;
+            next = next->next;
+        }
+    } while (swapped);
+}
+
+// Wrapper function to display all students sorted by ID
+void StudentManagementSystem::displayStudentsSortedByID() {
+    // Sort the students by ID before displaying
+    sortStudentsByID();
+
+    // Display the sorted students
+    displayStudentsTable();
+}
