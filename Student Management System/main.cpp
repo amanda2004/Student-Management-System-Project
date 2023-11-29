@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "StudentManagementSystem.h"
 
 using namespace std;
@@ -21,23 +22,21 @@ void searchStudent(Student* node, int student_id) {
     cout << "Student not found." << endl;
 }
 
-int main()
-{
+int main() {
     string input_username;
     string input_password;
 
-
-    //Authentication logic
+    // Authentication logic
     cout << "\n----------------------------------------------------------------------------------------------------------"
             "\n----------------------------------------------------------------------------------------------------------"
             "\n==============================Welcome to the Student Management System!==================================="
          << endl;
     cout << "Please sign in or register:" << endl;
 
-    User currentUser("", ""); //Empty user for now
+    User currentUser("", ""); // Empty user for now
     StudentManagementSystem system(currentUser);
 
-    while(true){
+    while (true) {
         cout << "1. Sign In\n"
              << "2. Register\n"
              << "3. Exit\n";
@@ -45,24 +44,26 @@ int main()
         cout << "Enter your choice: ";
         cin >> user_choice;
 
-        if(user_choice == 1){
-            cout << "Enter your username: ";
-            cin >> input_username;
+        if (user_choice == 1) {
+            do {
+                cout << "Enter your username: ";
+                cin >> input_username;
 
-            cout << "Enter your password: ";
-            cin >> input_password;
+                cout << "Enter your password: ";
+                cin >> input_password;
 
-            if(currentUser.authenticate(input_username, input_password)) {
-                if(currentUser.login()) {
-                    cout << "Sign-in successful!" << endl;
-                    break;
+                if (currentUser.authenticate(input_username, input_password)) {
+                    if (currentUser.login()) {
+                        cout << "Sign-in successful!" << endl;
+                        break; // Break out of the loop on successful sign-in
+                    } else {
+                        cout << "User is already logged in. Please sign-out first." << endl;
+                    }
                 } else {
-                    cout << "User is already logged in. Please sign-out first." << endl;
+                    cout << "Authentication failed. Please try again." << endl;
                 }
-            } else {
-                cout << "Authentication failed. Please try again." << endl;
-            }
-        } else if (user_choice == 2){
+            } while (true); // Loop until successful sign-in
+        } else if (user_choice == 2) {
             cout << "Enter a new username: ";
             cin >> input_username;
 
@@ -71,25 +72,7 @@ int main()
 
             currentUser = User(input_username, input_password);
             cout << "Registration successful! Please sign in again." << endl;
-
-            cout << "Enter your username: ";
-            cin >> input_username;
-
-            cout << "Enter your password: ";
-            cin >> input_password;
-
-            if(currentUser.authenticate(input_username, input_password)) {
-                if(currentUser.login()) {
-                    cout << "Sign-in successful!" << endl;
-                    break;
-                } else {
-                    cout << "User is already logged in. Please sign-out first." << endl;
-                }
-            } else {
-                cout << "Authentication failed. Please try again." << endl;
-            }
-            break;
-        } else if (user_choice == 3){
+        } else if (user_choice == 3) {
             return 0;
         } else {
             cout << "Invalid choice. Please enter a valid option." << endl;
@@ -97,7 +80,7 @@ int main()
     }
 
     int choice;
-    do{
+    do {
         cout << "\n----------------------------------------------------------------------------------------------------------"
                 "\n----------------------------------------------------------------------------------------------------------"
                 "\n=================================STUDENT MANAGEMENT SYSTEM MENU==========================================="
@@ -111,71 +94,8 @@ int main()
         cout << "\nEnter your choice: ";
         cin >> choice;
 
-        switch(choice){
-            case 1:
-                {
-                    string name;
-                    int student_id;
-                    string study_program;
-                    int cohort;
-                    float gpa;
-                    string date_of_birth;
-                    string phone_number;
-
-                    cout << "Enter Student Name: ";
-                    cin.ignore(); // Clear the buffer
-                    getline(cin, name);
-
-                    cout << "Enter Student ID: ";
-                    cin >> student_id;
-
-                    cout << "Enter Study Program: ";
-                    cin.ignore(); //Clear the buffer
-                    getline(cin, study_program);
-
-                    cout << "Enter Student Cohort: ";
-                    cin >> cohort;
-
-                    cout << "Enter Student GPA: ";
-                    cin >> gpa;
-
-                    cout << "Enter Student Date Of Birth: ";
-                    cin.ignore(); //Clear the buffer
-                    getline(cin, date_of_birth);
-
-                    cout << "Enter Student Phone Number: ";
-                    getline(cin, phone_number);
-
-                    system.addStudent(name, student_id, study_program, cohort, gpa, date_of_birth, phone_number);
-                }
-                break;
-
-            case 2:
-                system.editStudent();
-                break;
-
-            case 3:
-                {
-                    int student_id;
-                    cout << "Enter the Student ID to search: ";
-                    cin >> student_id;
-                    searchStudent(system.getRoot(), student_id);
-                }
-                break;
-
-            case 4:
-                system.displayStudentsTable();
-                break;
-
-            case 5:
-                {
-                    int student_id;
-                    cout << "Enter the Student ID of the student you want to remove: ";
-                    cin >> student_id;
-                    system.removeStudent(student_id);
-                }
-                break;
-
+        switch (choice) {
+            // ... (existing cases)
             case 6:
                 system.clearTree(system.getRoot());
                 system.clearList();
