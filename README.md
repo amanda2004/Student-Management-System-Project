@@ -1,5 +1,4 @@
-**PROGRAM**
-
+**PROGRAM**\n
 The Student Management System is a comprehensive software designed to automate a school’s diverse operations from classes, exams to school events calendar. This system helps schools to manage the admission process, student data, academic records, and other school-related information effectively.
 
 **PRIMARY FEATURES**
