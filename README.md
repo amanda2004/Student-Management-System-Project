@@ -1,8 +1,11 @@
 **PROGRAM**
+
 The Student Management System is a comprehensive software designed to automate a school’s diverse operations from classes, exams to school events calendar. This system helps schools to manage the admission process, student data, academic records, and other school-related information effectively.
 
 **PRIMARY FEATURES**
+
 The primary features of the Student Management System include:
+
 _User Authentication_: The system provides an onboard page where users can sign in or register. If the authentication fails, the user is prompted to try again or register a new account.
 _Student Management System_: The system allows users to add, edit, search, display, and remove student records. Each student record includes the student’s name, ID, study program, cohort, GPA, date of birth, and phone number.
 
