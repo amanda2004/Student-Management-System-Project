@@ -40,7 +40,7 @@ Technologies Used
 
 ## Getting Started
 1. Clone the Repository
-   '''bash
+   ```bash
    git clone https://github.com/amanda2004/Student-Management-System-Project.git cd student-management-systems
 2. Open the Project in VS Code: In VS Code, open the folder you just cloned:
    - Go to File > Open Folder and select the student-management-system directory.
